@@ -1,0 +1,43 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API BOWTest",
+        "description": "API de BOWTest",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000"
+        }
+    ],
+    "paths": {
+        "/api/students": {
+            "get": {
+                "summary": "Mostrar todos los estudiantes con asignaturas asociadas",
+                "operationId": "5abeda16b4a249ccc79492ce72bb7e26",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar todos los estudiantes con asignaturas asociadas"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        },
+        "/api/subjects": {
+            "get": {
+                "summary": "Mostrar todos las asignaturas con los estudiantes asociadas",
+                "operationId": "47e2b4d802021565347429c3222c7468",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar todos las asignaturas con los estudiantes asociadas"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        }
+    }
+}
