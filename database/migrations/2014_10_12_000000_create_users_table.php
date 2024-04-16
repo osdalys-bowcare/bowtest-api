@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name')->comment('Nombre del usuario');
             $table->string('email')->unique()->comment('Correo del usuario');
             $table->timestamp('email_verified_at')->nullable()->comment('Fecha de verificacion de correo');
-            $table->string('password')->nulllable()->comment('Contraseña del usuario');
+            $table->string('password')->comment('Contraseña del usuario');
             $table->rememberToken()->comment('Token');
             $table->timestamps();
         });
