@@ -9,6 +9,7 @@ class Subject extends Model
 {
     use HasFactory;
 
+    //Relacion a muchos estudiantes
     public function students()
     {
         return $this->belongsToMany(Student::class);

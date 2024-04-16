@@ -9,14 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    //Tabla de estudiantes
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('surname');
-            $table->string('id_number')->unique();
-            $table->date('birth_date');
+            $table->id()->comment('Llave primaria');
+            $table->string('name')->comment('Nombre del estudiante');
+            $table->string('surname')->comment('Apellido del estudiante');
+            $table->integer('id_number')->unique()->comment('Numero de identificacion');
+            $table->date('birth_date')->comment('Fecha de nacimiento del estudiante');
 
             $table->timestamps();
         });

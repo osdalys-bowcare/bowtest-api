@@ -9,14 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    //Tabla pivote de asignaturas
     public function up(): void
     {
         Schema::create('student_subject', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('student_id');
-            $table->unsignedBigInteger('subject_id');
+            $table->id()->comment('Llave primaria');
+            $table->unsignedBigInteger('student_id')->comment('Llave foranea a la tabla estudiantes');
+            $table->unsignedBigInteger('subject_id')->comment('Llave foranea a la tabla asignaturas');
             $table->timestamps();
 
+            //Conexiones a las tablas estudiantes y asignaturas
             $table->foreign('student_id')->references('id')->on('students');
             $table->foreign('subject_id')->references('id')->on('subjects');
 

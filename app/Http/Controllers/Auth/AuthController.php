@@ -41,6 +41,7 @@ class AuthController extends Controller
             'user' => $user
         ], Response::HTTP_OK);
     }
+
     //Funcion que utilizaremos para hacer login
     public function authenticate(Request $request)
     {
@@ -63,6 +64,7 @@ class AuthController extends Controller
                     'message' => 'Login failed',
                 ], 401);
             }
+            $cookie = cookie('jwt', $token, 60 * 24);
         } catch (JWTException $e) {
             //Error chungo
             return response()->json([
@@ -73,49 +75,23 @@ class AuthController extends Controller
         return response()->json([
             'token' => $token,
             'user' => Auth::user()
-        ]);
+        ])->withCookie($cookie);
     }
+
     //Función que utilizaremos para eliminar el token y desconectar al usuario
     public function logout(Request $request)
     {
-        //Validamos que se nos envie el token
-        $validator = Validator::make($request->only('token'), [
-            'token' => 'required'
-        ]);
-        //Si falla la validación
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 400);
-        }
-        try {
-            //Si el token es valido eliminamos el token desconectando al usuario.
-            JWTAuth::invalidate($request->token);
-            return response()->json([
-                'success' => true,
-                'message' => 'User disconnected'
-            ]);
-        } catch (JWTException $exception) {
-            //Error chungo
-            return response()->json([
-                'success' => false,
-                'message' => 'Error'
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        $cookie = Cookie::forget('jwt');
+
+        return response([
+            'message' => 'Success'
+        ])->withCookie($cookie);
+
     }
+    
     //Función que utilizaremos para obtener los datos del usuario y validar si el token a expirado.
-    public function getUser(Request $request)
+    public function getUser()
     {
-        //Validamos que la request tenga el token
-        $this->validate($request, [
-            'token' => 'required'
-        ]);
-        //Realizamos la autentificación
-        $user = JWTAuth::authenticate($request->token);
-        //Si no hay usuario es que el token no es valido o que ha expirado
-        if(!$user)
-            return response()->json([
-                'message' => 'Invalid token / token expired',
-            ], 401);
-        //Devolvemos los datos del usuario si todo va bien.
-        return response()->json(['user' => $user]);
+        return Auth::user();
     }
 }

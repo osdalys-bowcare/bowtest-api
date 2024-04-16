@@ -9,11 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    //Tabla de asignaturas
     public function up(): void
     {
         Schema::create('subjects', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->id()->comment('Llave primaria');
+            $table->string('name')->comment('nombre de la materia');
             $table->timestamps();
         });
     }

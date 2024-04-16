@@ -9,15 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    //Tabla de usuarios
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->id()->comment('Llave primaria');
+            $table->string('name')->comment('Nombre del usuario');
+            $table->string('email')->unique()->comment('Correo del usuario');
+            $table->timestamp('email_verified_at')->nullable()->comment('Fecha de verificacion de correo');
+            $table->string('password')->nulllable()->comment('Contraseña del usuario');
+            $table->rememberToken()->comment('Token');
             $table->timestamps();
         });
     }

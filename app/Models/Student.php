@@ -9,6 +9,7 @@ class Student extends Model
 {
     use HasFactory;
 
+    //Relacion de muchas asignaturas
     public function subjects()
     {
         return $this->belongsToMany(Subject::class);

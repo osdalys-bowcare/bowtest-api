@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Subject;
+use App\Http\Resources\SubjectResource;
 
 class subjectController extends Controller
 {
@@ -22,10 +23,11 @@ class subjectController extends Controller
     * )
     */
 
+    //Funcion GET para listar todas las asignaturas
     public function subjects ()
     {
         $subjects = Subject::has('students')->with('students')->get();
 
-        return response()->json($subjects);
+        return response()->json(SubjectResource::collection($subjects));
     }
 }

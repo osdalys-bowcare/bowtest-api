@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Http\Resources\StudentResource;
 
 class StudentController extends Controller
 {
@@ -22,10 +23,11 @@ class StudentController extends Controller
     * )
     */
 
+    //Funcion GET para listar todos los estudiantes
     public function students ()
     {
         $students = Student::has('subjects')->with('subjects')->get();
 
-        return response()->json($students);
+        return response()->json(StudentResource::collection($students));
     }
 }
